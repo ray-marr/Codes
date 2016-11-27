@@ -1,19 +1,35 @@
-
-	public class ExtractSkyCounts {
+public class ExtractSkyCounts {
 
 	public static void main(String[] args) {
 		
-		String string1 = "Insert row 1 from AiJ Measurements Table";
-		String string2 = "Insert row 2 from AiJ Measurements Table";
+		// Input Manually ***********************************
+		double RefStar_Counts_v = 6236771.751;
+		double RefStar_Mag_v = 7.88;
+		double RefStar_Counts_b = 4222080.356;
+		double RefStar_Mag_b = 7.95;
+		// **************************************************
+		
+		String string1 = "Input row 1 of v measurments	Source-Sky_ThisIsATest";
+		String string2 = "Input row 2 of v measurements	7000000";
+		String string3 = "Input row 2 of b measurements	5500000";
 		String[] parts1 = string1.split("	");
 		String[] parts2 = string2.split("	");
+		String[] parts3 = string3.split("	");
+		double[] skycounts_v = new double[parts1.length];
+		double[] skycounts_b = new double[parts1.length];
 		
+		System.out.println("Star" + "	" + "Sky Counts V" + "	" + "Sky Counts B" + "	" + "mag V" + "	" + "mag B" + "	" + "B-V");
 		
 		for (int i = 0; i < parts1.length; i++) {
 			if(parts1[i].matches("Source-Sky.*")){
-				System.out.println(parts1[i] + "	" + parts2[i]);
-				}
-		}
+				skycounts_v[i] = Double.parseDouble(parts2[i]);
+				skycounts_b[i] = Double.parseDouble(parts3[i]);	
+				System.out.print(parts1[i] + "	" + skycounts_v[i] + "	" + skycounts_b[i] + "	");
+				System.out.print(RefStar_Mag_v - 2.5*Math.log10(skycounts_v[i]/RefStar_Counts_v) + "	");
+				System.out.print(RefStar_Mag_b - 2.5*Math.log10(skycounts_b[i]/RefStar_Counts_b) + "	");
+				System.out.println(RefStar_Mag_b - 2.5*Math.log10(skycounts_b[i]/RefStar_Counts_b) - (RefStar_Mag_v - 2.5*Math.log10(skycounts_v[i]/RefStar_Counts_v)));
+			}}
+
 
 		    }
 
