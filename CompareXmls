@@ -35,7 +35,7 @@ public class CompareXmls {
 		double degs_per_pixel = 0.011277052601898586/60;
 		double deg_threshold = degs_per_pixel*10;
 		
-		System.out.println("Star"+ "\t" + "RA" + "\t" + "DEC" + "\t" + "Sky Counts V" + "\t" + "Sky Counts B" + "\t" + "Sky Flux V" + "\t" + "Sky Flux B" + "\t" + "Mag V" + "\t" + "Mag B" + "\t" + "pm_ra (m'')" + "\t" + "pm_dec (m'')" + "\t" + "pm_threshold (m'')" + "\t" + "pixel threshold");
+		System.out.println("Star"+ "\t" + "RA" + "\t" + "DEC" + "\t" + "Sky Counts V" + "\t" + "Sky Counts B" + "\t" + "Sky Flux V" + "\t" + "Sky Flux B" + "\t" + "Mag V" + "\t" + "Mag B" + "\t" + "B-V" + "\t" + "Absolute Mag V" + "\t" + "pm_ra (m'')" + "\t" + "pm_dec (m'')" + "\t" + "pm_threshold (m'')" + "\t" + "pixel threshold");
                 
 		for (int i = 0; i < 999; i++){
 		
@@ -67,7 +67,7 @@ public class CompareXmls {
                                                 else if(cell_dec > cluster_cell_dec + deg_threshold){}
                                                 else if(cell_dec < cluster_cell_dec - deg_threshold){}
 						else{
-							System.out.println(row2.getCell(0) + "\t" + row2.getCell(1) + "\t" + row2.getCell(2) + "\t" + row2.getCell(3) + "\t" + row2.getCell(4) + "\t" + row2.getCell(5) + "\t" + row2.getCell(6) + "\t" + row2.getCell(7) + "\t" + row2.getCell(8) + "\t" + cell_pmra + "\t" + cell_pmdec + "\t" + pmthreshold + "\t" + deg_threshold/degs_per_pixel );
+							System.out.println(row2.getCell(0) + "\t" + row2.getCell(1) + "\t" + row2.getCell(2) + "\t" + row2.getCell(3) + "\t" + row2.getCell(4) + "\t" + row2.getCell(5) + "\t" + row2.getCell(6) + "\t" + row2.getCell(7) + "\t" + row2.getCell(8) + "\t" + row2.getCell(9) + "\t" + row2.getCell(10) + "\t" + cell_pmra + "\t" + cell_pmdec + "\t" + pmthreshold + "\t" + deg_threshold/degs_per_pixel );
 						}
 					}}}
 			
