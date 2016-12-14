@@ -19,8 +19,8 @@ public class CompareXmls {
 	
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException{
-		FileInputStream fis = new FileInputStream(new File("C:\\Users\\Ray\\Desktop\\testaladin.xls"));
-		FileInputStream fis2 = new FileInputStream(new File("C:\\Users\\Ray\\Desktop\\testcluster.xls"));
+		FileInputStream fis = new FileInputStream(new File("C:\\Users\\Ray\\Desktop\\Extended Project 2016\\Observational Images\\November 28 2016 (m39)\\m39 open cluster\\data\\lots\\testaladin_I324.xls"));
+		FileInputStream fis2 = new FileInputStream(new File("C:\\Users\\Ray\\Desktop\\Extended Project 2016\\Observational Images\\November 28 2016 (m39)\\m39 open cluster\\data\\lots\\testcluster.xls"));
 
 		HSSFWorkbook wb = new HSSFWorkbook(fis);
 		HSSFSheet sheet = wb.getSheetAt(0);
@@ -31,25 +31,25 @@ public class CompareXmls {
 		
 		double cluster_pmra = -8.14;
 		double cluster_pmdec = -19.66;
-		double pmthreshold = 10.0;
+		double pmthreshold = 5.0;
 		double degs_per_pixel = 0.011277052601898586/60;
-		double deg_threshold = degs_per_pixel*10;
+		double deg_threshold = degs_per_pixel*3;
 		
 		System.out.println("Star"+ "\t" + "RA" + "\t" + "DEC" + "\t" + "Sky Counts V" + "\t" + "Sky Counts B" + "\t" + "Sky Flux V" + "\t" + "Sky Flux B" + "\t" + "Mag V" + "\t" + "Mag B" + "\t" + "B-V" + "\t" + "Absolute Mag V" + "\t" + "pm_ra (m'')" + "\t" + "pm_dec (m'')" + "\t" + "pm_threshold (m'')" + "\t" + "pixel threshold");
                 
-		for (int i = 0; i < 999; i++){
+		for (int i = 0; i < 31274; i++){
 		
 
 				Row row = sheet.getRow(i);
                 //check if pmra is an empty celltype(1) = empty, celltype(0) = number
-                int lol = row.getCell(7).getCellType();
-				if(lol == 1 ){}
+                int entrycheck = row.getCell(15).getCellType();
+				if(entrycheck == 1 ){}
                                 else{
 				
-				Double cell_ra = row.getCell(0).getNumericCellValue();
-				Double cell_dec = row.getCell(1).getNumericCellValue();
-				Double cell_pmra = row.getCell(7).getNumericCellValue();
-				Double cell_pmdec = row.getCell(9).getNumericCellValue();
+				Double cell_ra = row.getCell(1).getNumericCellValue();
+				Double cell_dec = row.getCell(2).getNumericCellValue();
+				Double cell_pmra = row.getCell(15).getNumericCellValue();
+				Double cell_pmdec = row.getCell(17).getNumericCellValue();
 				//ignore stars outside threshold
                                 if(cell_pmra > cluster_pmra + pmthreshold){}
 				else if(cell_pmra < cluster_pmra - pmthreshold){}
