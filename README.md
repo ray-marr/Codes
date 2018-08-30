@@ -14,3 +14,5 @@
 5) All matches are output to a table
 
 •CompareFilters - Compares 2 databases of stars and matches stars by coordinates, then outputs each star with the colour of each star as calculated from each dataset. This allowed me to plot the colour of stars which I observed versus catalogue data
+
+•FITS image callibrator - Calibrates astronomical FITS images. more info found in about file of the folder.
