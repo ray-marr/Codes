@@ -8,10 +8,17 @@ Buzz = 3;
 Wizz = 4;
 
 1
+
 Fizz
+
 Buzz
+
 FizzWizz
+
 5
+
 FizzBuzz
+
 7
+
 ...
