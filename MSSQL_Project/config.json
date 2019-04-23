@@ -1,0 +1,13 @@
+{
+"scheduled_file_path":"C:\\Users\\Ray\\Desktop\\MihialProject\\scheduled_files\\",
+"xlsx_file_path":"C:\\Users\\Ray\\Desktop\\MihialProject\\xlsx_files\\",
+"sql":{
+"sql_db_url":"localhost:1450",
+"sql_db_name":"testDatabase",
+"sql_db_user":"usernametest",
+"sql_db_pass":"passwordtest",
+"sql_hidden_query":"SELECT * FROM \"testTable\" ORDER BY age ASC",
+"sql_db_query1":"SELECT * FROM testTable ORDER BY firstname ASC",
+"sql_query1_interval_days": 1,
+}
+}
