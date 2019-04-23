@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<body class="w3-theme-l5">
+
+<h1>Database Query Page</h1>
+
+<p class="w3-text-theme">SQL statements:</p>
+<textarea class="w3-theme-d2" id = "mySQLText" rows = "6" cols = "80">SELECT * FROM testTable WHERE firstname = 'Albert'</textarea></br>
+<button type="button" onclick="loadDoc2()">Execute SQL</button>
+
+File type:
+<select class="w3-theme-d2" id="filetypeSelection">
+<option value="csv">csv</option>
+<option value="xml">xml</option>
+<option value="xlsx">xlsx</option>
+</select>
+
+</br>
+<p class="w3-text-theme">Result:<p>
+<textarea class="w3-theme-d2" id = "myTextArea" rows = "10" cols = "80">Output here</textarea></br>
+
+
+<button type="button" onclick="loadHiddenDoc()">Run Hidden Command</button>&nbsp;&nbsp;
+<button type="button" onclick="copyText()">Copy to clipboard</button>&nbsp;&nbsp;
+<a id="xlsxPath"><button type="button" onclick="downloadXLSX()">Download XLSX File</button></a>&nbsp;&nbsp;
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</br></br></br></br>
+
+<h2>Compare Scheduled Files:</h2>
+File 1: <select id="file1" class="w3-theme-d2">
+</select>&nbsp;&nbsp;
+File 2:<select id="file2" class="w3-theme-d2">
+</select>&nbsp;&nbsp;
+<button type="button" onclick="loadScheduledList()">Load/Refresh Files</button>&nbsp;&nbsp;
+<button type="button" onclick="compareFiles()">Compare Selected Files</button>&nbsp;&nbsp;
+File Type: 
+<select id="compareFileType">
+<option value="csv">csv</option>
+<option value="xml">xml</option>
+<option value="xlsx">xlsx</option>
+</select>
+
+</br>
+
+<textarea class="w3-theme-d2" id = "textComparison" rows = "10" cols = "80">Output here</textarea></br>
+
+<a id="xlsxPathComparison"><button type="button" onclick="dlComparison()">Download XLSX Comparison</button></a>
+<script>
+var filePath = null;
+
+function loadHiddenDoc() {
+	var filetype = document.getElementById('filetypeSelection').options[document.getElementById('filetypeSelection').selectedIndex].value; 
+	var url = "http://localhost:4567/query/sql/"+filetype+"/hidden";
+	 $.post(url,
+    null,
+    function( data, status ){
+	if(filetype == "xlsx"){
+		document.getElementById("myTextArea").innerHTML = "XSLX Ready to Download";
+		filePath = data;
+		document.getElementById("xlsxPath").href=filePath;
+	  }else{
+		document.getElementById("myTextArea").innerHTML = data;
+	  }
+    });
+	
+	
+}
+
+function loadDoc2() {
+var filetype = document.getElementById('filetypeSelection').options[document.getElementById('filetypeSelection').selectedIndex].value; 
+	var url = "http://localhost:4567/query/sql/"+filetype;
+	 $.post(url,
+    document.getElementById("mySQLText").innerHTML,
+    function( data, status ){
+	  if(filetype == "xlsx"){
+		document.getElementById("myTextArea").innerHTML = "XSLX Ready to Download";
+		filePath = data;
+		document.getElementById("xlsxPath").href=filePath;
+	  }else{
+		document.getElementById("myTextArea").innerHTML = data;
+	  }
+    });
+}
+
+function copyText() {
+  var copyText = document.getElementById("myTextArea");
+   copyText.select();
+  document.execCommand("copy");
+ 
+} 
+
+function downloadXLSX(){
+	if(filePath == null){
+	alert("Nothing to download!");
+	}
+}
+
+
+function loadScheduledList(){
+	document.getElementById("file1").innerHTML='';
+	document.getElementById("file2").innerHTML='';
+	var url = "http://localhost:4567/fileList";
+	
+	$.post(url,null,
+    function( data, status ){
+		var fileListArray = data.split(',');
+		//document.getElementById("file1")
+		for(var file in fileListArray){
+			var optionElement = document.createElement('option');
+			optionElement.value = fileListArray[file];
+			optionElement.innerHTML = fileListArray[file];
+			document.getElementById("file1").appendChild(optionElement);
+			
+			var optionElement2 = document.createElement('option');
+			optionElement2.value = fileListArray[file];
+			optionElement2.innerHTML = fileListArray[file];
+			document.getElementById("file2").appendChild(optionElement2);
+		}
+		
+    });
+}
+
+function compareFiles(){
+	var url = "http://localhost:4567/compareFiles";
+	var file1 = document.getElementById('file1').options[document.getElementById('file1').selectedIndex].value;
+	var file2 = document.getElementById('file2').options[document.getElementById('file2').selectedIndex].value;
+	var fileType = document.getElementById('compareFileType').options[document.getElementById('compareFileType').selectedIndex].value;
+	var body = file1 + ","+ file2 + "," + fileType;
+	$.post(url,body,
+    function( data, status ){
+		if(fileType=="xlsx"){
+			document.getElementById("xlsxPathComparison").href=data;
+			document.getElementById("textComparison").innerHTML = "XSLX Comparison generated! Click download below...";
+		}else{
+		document.getElementById("textComparison").innerHTML = data;
+		}
+    });
+	
+}
+
+
+</script>
+
+</body>
+</html>
