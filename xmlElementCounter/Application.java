@@ -37,13 +37,14 @@ public class Application {
         Document xmldoc = factory.newDocumentBuilder().parse(xmlFile);
 
         String xslFile = "C:\\Users\\rmarr\\IdeaProjects\\XmlElementCounter\\counter.xsl";
-        String stylesheet = FileUtils.readFileToString(new File(xslFile), "UTF-8").replace("ELEMENT_NAME", element );
+        String stylesheet = FileUtils.readFileToString(new File(xslFile), "UTF-8");
         InputStream inputStream = new ByteArrayInputStream(stylesheet.getBytes(Charset.forName("UTF-8")));
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         StreamSource styleSource = new StreamSource(inputStream);
 
         Transformer transformer = transformerFactory.newTransformer(styleSource);
+        transformer.setParameter("elementname", element);
         DOMSource source = new DOMSource(xmldoc);
         StreamResult result = new StreamResult(System.out);
         transformer.transform(source, result);
