@@ -14,6 +14,6 @@
   
   #3 countElementsRegex(element, filePath);
   
-  This uses a Regex match for "</elementname>", which counts closing tags of the element.
+  This uses a Regex match, which counts closing tags of the element.
   This is not an ideal solution as it does not account for the case where an xml is open and closed in the same brackets 
   <elementname test="test" />, which is also valid xml.
