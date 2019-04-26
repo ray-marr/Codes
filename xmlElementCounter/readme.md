@@ -16,4 +16,4 @@
   
   This uses a Regex match, which counts closing tags of the element.
   This is not an ideal solution as it does not account for the case where an xml is open and closed in the same brackets 
-  <elementname test="test" />, which is also valid xml.
+  <![CDATA[<elementname test="test" />]]>, which is also valid xml.
