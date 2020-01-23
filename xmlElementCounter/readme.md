@@ -3,8 +3,7 @@
 
   #1 countElementsXSL(element, filePath);
   
-  Uses XSLT transform sheet and returns result to system.out, whilst this requires more code than other examples, 
-  it is my favourite method as it uses XSLT language.
+  Uses XSLT transform sheet and outputs result
   
   
   #2 countElementsW3cDom(element, filePath);
